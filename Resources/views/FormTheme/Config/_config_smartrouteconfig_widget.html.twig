@@ -1,0 +1,104 @@
+{% block _config_smartrouteconfig_widget %}
+{% set fields = form.children %}
+
+<h4 class="fw-sb mt-48 mb-xs">{{ 'sendability.smartroute.config.header'|trans }}</h4>
+<div class="text-muted small pb-md">{{ 'sendability.smartroute.config.description'|trans }}</div>
+
+<div class="row">
+    <div class="panel panel-default mb-md">
+        <div class="panel-body">
+            <div class="col-xs-12">
+                {{ form_row(fields.smartroute_enabled) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4 class="fw-sb mt-48 mb-xs">{{ 'sendability.smartroute.config.dsn_header'|trans }}</h4>
+<div class="text-muted small pb-md">{{ 'sendability.smartroute.config.dsn_description'|trans }}</div>
+
+<div class="row">
+    <div class="panel panel-default mb-md">
+        <div class="panel-body">
+            <div class="col-xs-12">
+                {{ form_row(fields.smartroute_secondary_dsn) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4 class="fw-sb mt-48 mb-xs">{{ 'sendability.smartroute.config.sender_header'|trans }}</h4>
+<div class="text-muted small pb-md">{{ 'sendability.smartroute.config.sender_description'|trans }}</div>
+
+<div class="row">
+    <div class="panel panel-default mb-md">
+        <div class="panel-body">
+            <div class="col-xs-12">
+                {{ form_row(fields.smartroute_from_email) }}
+            </div>
+            <div class="col-xs-12">
+                {{ form_row(fields.smartroute_from_name) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4 class="fw-sb mt-48 mb-xs">{{ 'sendability.smartroute.config.routing_header'|trans }}</h4>
+<div class="text-muted small pb-md">{{ 'sendability.smartroute.config.routing_description'|trans }}</div>
+
+<div class="row">
+    <div class="panel panel-default mb-md">
+        <div class="panel-body">
+            <div class="col-xs-12">
+                {{ form_row(fields.smartroute_mode) }}
+            </div>
+
+            <div class="col-xs-12">
+                {{ form_row(fields.smartroute_secondary_percentage) }}
+            </div>
+
+            <div id="smartroute-domain-section" class="col-xs-12">
+                {{ form_row(fields.smartroute_domain_list) }}
+            </div>
+
+            <div id="smartroute-field-section" class="col-xs-12">
+                {{ form_row(fields.smartroute_custom_field) }}
+                {{ form_row(fields.smartroute_field_value) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    Mautic.sendabilityToggleMode = function(el) {
+        var mode = (typeof mQuery !== 'undefined') ? mQuery(el).val() : el.value;
+        var domainSection = document.getElementById('smartroute-domain-section');
+        var fieldSection  = document.getElementById('smartroute-field-section');
+
+        if (mode === 'domain') {
+            domainSection.style.display = 'block';
+            fieldSection.style.display  = 'none';
+        } else {
+            domainSection.style.display = 'none';
+            fieldSection.style.display  = 'block';
+        }
+    };
+
+    // Initialize on page load
+    (function() {
+        function init() {
+            var modeSelect = document.getElementById('config_smartrouteconfig_smartroute_mode');
+            if (modeSelect) {
+                Mautic.sendabilityToggleMode(modeSelect);
+            }
+        }
+        if (typeof mQuery !== 'undefined') {
+            mQuery(document).ready(init);
+        } else if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+</script>
+{% endblock %}

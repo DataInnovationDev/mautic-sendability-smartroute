@@ -1,0 +1,22 @@
+{
+    "name": "sendability/mautic-smart-route",
+    "description": "Sendability SmartRoute for Mautic - routes emails through different SMTP servers based on contact fields or domain.",
+    "type": "mautic-plugin",
+    "license": "GPL-3.0-or-later",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Ziyad Shoeky",
+            "role": "Developer",
+            "homepage": "https://sendability.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "MauticPlugin\\SendabilitySmartRouteBundle\\": ""
+        }
+    }
+}
